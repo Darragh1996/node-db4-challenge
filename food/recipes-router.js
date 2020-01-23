@@ -38,4 +38,15 @@ router.get("/:recipe_id/steps", (req, res) => {
     });
 });
 
+router.get("/:recipe_id/list", (req, res) => {
+  Recipes.getShoppingList(req.params.recipe_id)
+    .then(list => {
+      res.json(list);
+    })
+    .catch(err => {
+      console.log("hello");
+      res.status(500).json({ message: "something went wrong" });
+    });
+});
+
 module.exports = router;
