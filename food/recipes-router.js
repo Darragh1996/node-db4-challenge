@@ -14,4 +14,28 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:id", (req, res) => {
+  Recipes.getRecipesById(req.params.id)
+    .then(recipe => {
+      res.json(recipe);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ message: `could not get recipe at ${req.params.id}` });
+    });
+});
+
+router.get("/:recipe_id/steps", (req, res) => {
+  Recipes.getStepsAtRecipeId(req.params.recipe_id)
+    .then(steps => {
+      res.json(steps);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ message: "could not get steps at specified recipe_id" });
+    });
+});
+
 module.exports = router;
